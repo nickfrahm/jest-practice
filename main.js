@@ -43,13 +43,18 @@ function caesarify(str, shift = 2) {
   let newStr = '';
   for (let i = 0; i < str.length; i++) {
     let letterIndex = alphaArr.indexOf(str[i]);
-    newStr += alphaArr[letterIndex + shift];
+    if (checkUpperCase(str[i])) {
+      newStr += alphaArr[letterIndex + shift].toUpperCase();
+    } else {
+      newStr += alphaArr[letterIndex + shift];
+    }
   }
   return newStr;
 }
 
 function checkUpperCase(char) {
-  if (char === char.toUpperCase()) {
+  let upper = char.toUpperCase();
+  if (char === upper) {
     return true;
   }
   return false;

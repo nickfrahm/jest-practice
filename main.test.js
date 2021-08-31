@@ -58,5 +58,5 @@ test('Shift of 2 letters, no punctuation, no casing, not passing z', () => {
 });
 
 test('Test for case specific strings', () => {
-  expect(caesarify('WiLd')).toBe('YkNf');
+  expect(caesarify('SpIkE')).toBe('UrKmG');
 });
