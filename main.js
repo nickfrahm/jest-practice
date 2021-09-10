@@ -42,7 +42,7 @@ function caesarify(str, shift = 2) {
   const alphaArr = alphabet.split('');
   let newStr = '';
   for (let i = 0; i < str.length; i++) {
-    let letterIndex = alphaArr.indexOf(str[i]);
+    let letterIndex = alphaArr.indexOf(str[i].toLowerCase());
     if (checkUpperCase(str[i])) {
       newStr += alphaArr[letterIndex + shift].toUpperCase();
     } else {
