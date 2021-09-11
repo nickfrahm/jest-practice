@@ -60,3 +60,9 @@ test('Shift of 2 letters, no punctuation, no casing, not passing z', () => {
 test('Test for case specific strings', () => {
   expect(caesarify('SpIkE', 2)).toBe('UrKmG');
 });
+
+test('Test for spaces, numbers, punctuation', () => {
+  expect(caesarify('Cat 123 [!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~]')).toBe(
+    'Ecv 123 [!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~]'
+  );
+});

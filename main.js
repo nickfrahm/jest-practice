@@ -45,6 +45,8 @@ function caesarify(str, shift = 2) {
     let letterIndex = alphaArr.indexOf(str[i].toLowerCase());
     if (checkUpperCase(str[i])) {
       newStr += alphaArr[letterIndex + shift].toUpperCase();
+    } else if (checkSpecialChars(str[i])) {
+      newStr += str[i];
     } else {
       newStr += alphaArr[letterIndex + shift];
     }
@@ -55,6 +57,13 @@ function caesarify(str, shift = 2) {
 function checkUpperCase(char) {
   let upper = char.toUpperCase();
   if (char === upper) {
+    return true;
+  }
+  return false;
+}
+
+function checkSpecialChars(char) {
+  if (char === ' ' || char === /[!"#$%&\'()*+,-./:;<=>?@[\\\]^_`{|}~] /) {
     return true;
   }
   return false;
