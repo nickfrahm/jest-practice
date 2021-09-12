@@ -3,6 +3,7 @@ const capitalize = functions.capitalize;
 const reverse = functions.reverse;
 const calculator = functions.calculator;
 const caesarify = functions.caesarify;
+const createNumObj = functions.createNumObj;
 
 //capitalize tests
 test('normal string of letter, capitalize first letter of string', () => {
@@ -65,4 +66,38 @@ test('Test for spaces, numbers, punctuation', () => {
   expect(caesarify('Cat 123 [!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~]')).toBe(
     'Ecv 123 [!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~]'
   );
+});
+
+test('Test for wrapping Z to A', () => {
+  expect(caesarify('Zesty Tacos', 15)).toBe('Othin Iprdh');
+});
+
+/********************/
+
+//Array tests
+test('Testing 1, 2, 3, 4 -> min, max, average, length', () => {
+  expect(createNumObj([1, 2, 3, 4])).toMatchObject({
+    avg: 2.5,
+    min: 1,
+    max: 4,
+    length: 4,
+  });
+});
+
+test('Testing different length', () => {
+  expect(createNumObj([1, 3])).toMatchObject({
+    avg: 2,
+    min: 1,
+    max: 3,
+    length: 2,
+  });
+});
+
+test('Testing array with negatives', () => {
+  expect(createNumObj([1, -3, -4])).toMatchObject({
+    avg: -2,
+    min: -4,
+    max: 1,
+    length: 3,
+  });
 });

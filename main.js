@@ -1,3 +1,4 @@
+/*capitalize function */
 function capitalize(str) {
   str = str.trim();
   if (str.match(/^[a-z]/)) {
@@ -15,6 +16,7 @@ function capitalize(str) {
   }
 }
 
+/*reverse function */
 function reverse(str) {
   let strArr = str.trim().split('');
   let newStr = '';
@@ -24,6 +26,7 @@ function reverse(str) {
   return newStr;
 }
 
+/*calculator function */
 function calculator(a, b, op) {
   switch (op) {
     case 'add':
@@ -37,21 +40,40 @@ function calculator(a, b, op) {
   }
 }
 
+/*caesarify function */
 function caesarify(str, shift = 2) {
   const alphabet = 'abcdefghijklmnopqrstuvwxyz';
   const alphaArr = alphabet.split('');
   let newStr = '';
   for (let i = 0; i < str.length; i++) {
     let letterIndex = alphaArr.indexOf(str[i].toLowerCase());
-    if (checkUpperCase(str[i])) {
-      newStr += alphaArr[letterIndex + shift].toUpperCase();
-    } else if (checkSpecialChars(str[i])) {
-      newStr += str[i];
+    if (letterIndex !== -1) {
+      if (checkUpperCase(str[i])) {
+        if (!checkWrappedChar(letterIndex, shift, alphabet.length)) {
+          newStr += alphaArr[letterIndex + shift].toUpperCase();
+        } else {
+          newStr +=
+            alphaArr[letterIndex + shift - alphabet.length].toUpperCase();
+        }
+      } else {
+        if (!checkWrappedChar(letterIndex, shift, alphabet.length)) {
+          newStr += alphaArr[letterIndex + shift];
+        } else {
+          newStr += alphaArr[letterIndex + shift - alphabet.length];
+        }
+      }
     } else {
-      newStr += alphaArr[letterIndex + shift];
+      newStr += str[i];
     }
   }
   return newStr;
+}
+
+function checkWrappedChar(index, shift, length) {
+  if (index + shift > length - 1) {
+    return true;
+  }
+  return false;
 }
 
 function checkUpperCase(char) {
@@ -62,11 +84,47 @@ function checkUpperCase(char) {
   return false;
 }
 
-function checkSpecialChars(char) {
-  if (char === ' ' || char === /[!"#$%&\'()*+,-./:;<=>?@[\\\]^_`{|}~] /) {
-    return true;
+/*number array to object function */
+function createNumObj(arr) {
+  length = arr.length;
+  min = checkMinNumber(arr);
+  max = checkMaxNumber(arr);
+  avg = calcAverageFromArr(arr);
+
+  return {
+    avg: avg,
+    min: min,
+    max: max,
+    length: length,
+  };
+}
+
+function checkMinNumber(numArr) {
+  let min = numArr[0];
+  for (let i = 1; i < numArr.length; i++) {
+    if (min > numArr[i]) {
+      min = numArr[i];
+    }
   }
-  return false;
+  return min;
+}
+
+function checkMaxNumber(numArr) {
+  let max = numArr[0];
+  for (let i = 1; i < numArr.length; i++) {
+    if (max < numArr[i]) {
+      max = numArr[i];
+    }
+  }
+  return max;
+}
+
+function calcAverageFromArr(numArr) {
+  let sum = 0;
+  for (let i = 0; i < numArr.length; i++) {
+    sum += numArr[i];
+  }
+  return sum / numArr.length;
 }
 
 module.exports = {
@@ -74,4 +132,5 @@ module.exports = {
   reverse: reverse,
   calculator: calculator,
   caesarify: caesarify,
+  createNumObj: createNumObj,
 };
